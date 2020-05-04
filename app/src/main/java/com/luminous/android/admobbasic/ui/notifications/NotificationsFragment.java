@@ -52,9 +52,5 @@ public class NotificationsFragment extends Fragment {
 
         golpoPlayer.start();
     }
-
-    @Override
-    public void onAttachFragment(@NonNull Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-    }
+    
 }
