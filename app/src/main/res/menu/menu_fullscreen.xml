@@ -7,7 +7,7 @@
     <item
         android:id="@+id/actionPrev"
         android:icon="@android:drawable/ic_media_previous"
-        android:title="Previous"
+        android:title="@string/previous"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/actionNext"
