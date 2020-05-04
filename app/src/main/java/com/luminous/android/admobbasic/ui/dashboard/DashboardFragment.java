@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.luminous.android.admobbasic.ImageRecyclerAdapter;
+import com.luminous.android.admobbasic.R;
 
 import java.util.Arrays;
 import java.util.List;
