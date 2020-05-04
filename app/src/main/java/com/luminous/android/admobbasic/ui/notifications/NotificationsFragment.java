@@ -1,6 +1,5 @@
 package com.luminous.android.admobbasic.ui.notifications;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,5 +51,5 @@ public class NotificationsFragment extends Fragment {
 
         golpoPlayer.start();
     }
-    
+
 }
