@@ -13,12 +13,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.luminous.android.admobbasic.R;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     TextView storyText;
+    private AdView adView;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +33,12 @@ public class HomeFragment extends Fragment {
         storyText = root.findViewById(R.id.storyText);
 
         storyText.setText(R.string.BhooterSanarHat);
+
+        adView = new AdView(getActivity());
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-8350504222422488/9359151241");
+
+
 
         return root;
     }
