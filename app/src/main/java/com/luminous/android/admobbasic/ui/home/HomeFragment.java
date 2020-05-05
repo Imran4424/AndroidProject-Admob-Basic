@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -23,7 +24,6 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     TextView storyText;
-    private AdView adView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,13 +38,48 @@ public class HomeFragment extends Fragment {
 
         storyText.setText(R.string.BhooterSanarHat);
 
-        adView = new AdView(getActivity());
+        AdView adView = new AdView(getActivity());
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-8350504222422488/9359151241");
         storyLinearLayout.addView(adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+
+        });
 
         return root;
     }
