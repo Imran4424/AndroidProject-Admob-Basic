@@ -11,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public abstract class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,10 @@ public abstract class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    // this is
-    public abstract void play(View view);
+    // this is for fragment reward (Notification) onClick play method
+    // otherwise app will crush
+    // alternative solution - implement onClick programmatically 
+    public void play(View view) {
+
+    }
 }
