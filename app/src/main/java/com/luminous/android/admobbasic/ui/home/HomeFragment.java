@@ -18,12 +18,17 @@ import com.luminous.android.admobbasic.R;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    TextView storyText;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        storyText = root.findViewById(R.id.storyText);
+
+        storyText.setText(R.string.BhooterSanarHat);
 
         return root;
     }
