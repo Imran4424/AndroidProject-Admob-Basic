@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.List;
 
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdapter.ViewHolder> {
@@ -51,9 +54,18 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.itemImage);
 
+            final InterstitialAd interstitialAd = new InterstitialAd(context);
+            interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/3532109491");
+            interstitialAd.loadAd(new AdRequest.Builder().build());
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    }
+
                     Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
                     fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
                     context.startActivity(fullScreenIntent);
