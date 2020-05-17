@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -55,7 +56,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             imageView = (ImageView) itemView.findViewById(R.id.itemImage);
 
             final InterstitialAd interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/3532109491");
+            interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/7094475209");
             interstitialAd.loadAd(new AdRequest.Builder().build());
 
 
@@ -64,11 +65,21 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
                 public void onClick(View v) {
                     if (interstitialAd.isLoaded()) {
                         interstitialAd.show();
-                    }
 
-                    Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
-                    fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
-                    context.startActivity(fullScreenIntent);
+                        interstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
+                                fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
+                                context.startActivity(fullScreenIntent);
+                            }
+
+                        });
+                    } else {
+                        Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
+                        fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
+                        context.startActivity(fullScreenIntent);
+                    }
                 }
             });
         }

@@ -43,7 +43,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="55dp"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-8350504222422488/9359151241"
+        app:adUnitId="ca-app-pub-8350504222422488/9720638548"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
