@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
         storyText = root.findViewById(R.id.storyText);
 
         storyText.setText(R.string.BhooterSanarHat);
-
         
         AdView adView = root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
