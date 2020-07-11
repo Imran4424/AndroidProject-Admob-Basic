@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
         storyText.setText(R.string.BhooterSanarHat);
 
 
+
         
 
 
