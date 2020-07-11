@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
         storyText = root.findViewById(R.id.storyText);
 
         storyText.setText(R.string.BhooterSanarHat);
-
         
 
 
