@@ -46,6 +46,8 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
         
 
         AdView adView = root.findViewById(R.id.adView);
