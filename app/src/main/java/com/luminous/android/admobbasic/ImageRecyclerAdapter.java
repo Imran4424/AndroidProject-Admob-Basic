@@ -21,11 +21,16 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
     private final LayoutInflater layoutInflater;
 //    private final List<ImageView> imageResources;
     private final List<Integer> imageResources;
+    final InterstitialAd interstitialAd;
 
     public ImageRecyclerAdapter(Context context, List<Integer> imageResources) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.imageResources = imageResources;
+
+        interstitialAd = new InterstitialAd(context);
+        interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/7094475209");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     @NonNull
@@ -55,29 +60,27 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.itemImage);
 
-            final InterstitialAd interstitialAd = new InterstitialAd(context);
-            interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/7094475209");
-            interstitialAd.loadAd(new AdRequest.Builder().build());
-
+            if(!interstitialAd.isLoaded()) {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    final Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
+                    fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
+
                     if (interstitialAd.isLoaded()) {
                         interstitialAd.show();
 
                         interstitialAd.setAdListener(new AdListener() {
                             @Override
                             public void onAdClosed() {
-                                Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
-                                fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
                                 context.startActivity(fullScreenIntent);
                             }
 
                         });
                     } else {
-                        Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
-                        fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
                         context.startActivity(fullScreenIntent);
                     }
                 }
