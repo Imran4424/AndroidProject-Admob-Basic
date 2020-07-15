@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.jsibbold.zoomage.ZoomageView;
 
 public class FullScreenImage extends AppCompatActivity {
     public static final String IMAGE_POSITION = "com.luminous.happybirthday.IMAGE_POSITION";
     public static final int POSITION_NOT_SET = -1;
+
 
     private int imagePosition;
     private Integer[] imageResArray = new Integer[] {R.drawable.arshad_1,
@@ -103,6 +106,7 @@ public class FullScreenImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_image);
 
+
         zoomImageView = (ZoomageView) findViewById(R.id.zoomImageView);
 
         // set bouncing false
@@ -111,8 +115,25 @@ public class FullScreenImage extends AppCompatActivity {
         Intent fullScreenIntent = getIntent();
         imagePosition = fullScreenIntent.getIntExtra(IMAGE_POSITION, POSITION_NOT_SET);
 
-        setImageViewResource();
+        if(MainActivity.interstitialAd.isLoaded()) {
+            MainActivity.interstitialAd.show();
+
+            MainActivity.interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    setImageViewResource();
+                    MainActivity.loadInterstitialAd();
+                }
+            });
+
+        } else {
+            setImageViewResource();
+            MainActivity.loadInterstitialAd();
+        }
+
     }
+
+
 
     private void setImageViewResource() {
         zoomImageView.setImageResource(imageResArray[imagePosition]);

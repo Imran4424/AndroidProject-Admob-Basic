@@ -29,8 +29,8 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
         this.imageResources = imageResources;
 
         interstitialAd = new InterstitialAd(context);
-        interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/7094475209");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+//        interstitialAd.setAdUnitId("ca-app-pub-8350504222422488/7094475209");
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     @NonNull
@@ -60,29 +60,31 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.itemImage);
 
-            if(!interstitialAd.isLoaded()) {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
+                    if (!MainActivity.interstitialAd.isLoaded()) {
+                        MainActivity.loadInterstitialAd();
+                    }
+
+                    Intent fullScreenIntent = new Intent(context, FullScreenImage.class);
                     fullScreenIntent.putExtra(FullScreenImage.IMAGE_POSITION, currentPosition);
 
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
+                    context.startActivity(fullScreenIntent);
 
-                        interstitialAd.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                context.startActivity(fullScreenIntent);
-                            }
-
-                        });
-                    } else {
-                        context.startActivity(fullScreenIntent);
-                    }
+//                    if (interstitialAd.isLoaded()) {
+//                        interstitialAd.show();
+//
+//                        interstitialAd.setAdListener(new AdListener() {
+//                            @Override
+//                            public void onAdClosed() {
+//                                context.startActivity(fullScreenIntent);
+//                            }
+//
+//                        });
+//                    } else {
+//                        context.startActivity(fullScreenIntent);
+//                    }
                 }
             });
         }

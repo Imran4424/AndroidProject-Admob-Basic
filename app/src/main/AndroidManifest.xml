@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8350504222422488~1016152019"/>
+            android:value="@string/admob_app_id"/>
 
         <activity android:name=".FullScreenImage"></activity>
         <activity

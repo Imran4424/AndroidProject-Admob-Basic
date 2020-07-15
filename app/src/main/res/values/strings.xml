@@ -5,4 +5,10 @@
     <string name="title_notifications">Rewards</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <string name="admob_app_id">ca-app-pub-8350504222422488~1016152019</string>
+    <string name="admob_banner_id">ca-app-pub-8350504222422488/9720638548</string>
+    <string name="admob_interstitial_id">ca-app-pub-8350504222422488/7094475209</string>
+    <string name="admob_native_id">ca-app-pub-8350504222422488/8511498653</string>
+    <string name="admob_rewarded_id">ca-app-pub-8350504222422488/3450743666</string>
 </resources>

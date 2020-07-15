@@ -11,13 +11,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.luminous.android.admobbasic.ImageRecyclerAdapter;
 import com.luminous.android.admobbasic.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
+    public static final int NUMBER_OF_ADS = 5;
+    AdLoader adLoader;
+    List<UnifiedNativeAd> nativeAdList = new ArrayList<>();
 
     private DashboardViewModel dashboardViewModel;
     private List<Integer> imageResource;
@@ -100,6 +109,7 @@ public class DashboardFragment extends Fragment {
             R.drawable.mypic_19,
             R.drawable.mypic_20,
             R.drawable.mypic_21};
+    private RecyclerView recyclerImages;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -113,10 +123,43 @@ public class DashboardFragment extends Fragment {
         final RecyclerView recyclerImages = (RecyclerView) root.findViewById(R.id.listImage);
         final LinearLayoutManager imagesLayoutManager = new LinearLayoutManager(getActivity());
         recyclerImages.setLayoutManager(imagesLayoutManager);
+        
+        loadNativeAds();
 
         final ImageRecyclerAdapter imageRecyclerAdapter = new ImageRecyclerAdapter(getActivity(), imageResource);
         recyclerImages.setAdapter(imageRecyclerAdapter);
 
         return root;
+    }
+
+    private void loadNativeAds() {
+        AdLoader.Builder builder = new AdLoader.Builder(getActivity(), getResources().getString(R.string.admob_native_id));
+
+        adLoader = builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+            @Override
+            public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                nativeAdList.add(unifiedNativeAd);
+
+                if(!adLoader.isLoading()) {
+                    insertAdsInRecyclerView();
+                }
+            }
+        }).withAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                insertAdsInRecyclerView();
+            }
+        }).build();
+
+        adLoader.loadAds(new AdRequest.Builder().build(), NUMBER_OF_ADS);
+    }
+
+    private void insertAdsInRecyclerView() {
+        if (nativeAdList.size() <= 0) {
+            return;
+        }
+
+
     }
 }
